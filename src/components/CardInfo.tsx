@@ -8,22 +8,24 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react"
+import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 import { KycModal } from "./onboarding/KycModal";
 
 export const CardInfo = () => {
+  const { isConnected } = useAccount();
   const { openConnectModal } = useConnectModal();
+
   const { isOpen: isKycOpen, onOpen: onKycOpen, onClose: onKycClose } = useDisclosure();
 
   const getCardClick = async () => {
-    if (!openConnectModal) {
+    if (isConnected) {
       onKycOpen();
     } else {
-      openConnectModal();
+      openConnectModal!();
     }
   }
-  
   return (
     <VStack w="full" h="100%" borderColor="white" borderWidth={6} borderRadius={36} flexGrow={1}>
       <VStack w="full" h="full" alignItems="flex-start" spacing={12} pt={6} pb={6} pr={10} pl={10}>
