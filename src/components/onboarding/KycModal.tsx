@@ -110,10 +110,13 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
               <ModalHeader>Complete your Profile</ModalHeader>
               <ModalBody>
                 <VStack w="full" alignItems="flex-start" spacing={3}>
-                  <Text fontSize={12} color="gray.500">
-                    This information is never saved in our database or exposed to other team members. We only share this
-                    information with our Bank Partners to comply with regulations.
-                  </Text>
+                  <Alert status="info">
+                    <AlertIcon />
+                    <Text fontWeight="600" fontSize="14">
+                      Our bank partner is mandated by federal law (USA PATRIOT ACT) to collect this information. This information
+                      is never saved with Nucleus. It is only used to verify your identity and will not affect your credit score.
+                    </Text>
+                  </Alert>
                   
                   <Flex w="full" gap="10px">
                     {formikWrappedInput('firstName', 'First Name', props.isSubmitting, {}, true, false)}
