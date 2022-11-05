@@ -1,20 +1,16 @@
 import "@fontsource/roboto-mono";
 
-import {
-  RainbowKitProvider,
-  getDefaultWallets,
-} from "@rainbow-me/rainbowkit";
-import { infuraProvider } from "wagmi/providers/infura";
-import { publicProvider } from "wagmi/providers/public";
-import { WagmiConfig, chain, configureChains, createClient } from "wagmi";
 import { Box, ChakraProvider, HStack, Image, SimpleGrid, Text, VStack, theme } from "@chakra-ui/react";
+import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
+import { WagmiConfig, chain, configureChains, createClient } from "wagmi";
 
 import { CardInfo } from "./components/CardInfo";
 import { TransactionHistory } from "./components/transactions/TransactionHistory";
+import { infuraProvider } from "wagmi/providers/infura";
 
 const { chains, provider } = configureChains(
   [process.env.REACT_APP_STAGE === "dev" ? chain.goerli : chain.mainnet],
-  [infuraProvider({ apiKey: process.env.REACT_APP_INFURA_KEY }), publicProvider()]
+  [infuraProvider({ apiKey: process.env.REACT_APP_INFURA_KEY })]
 );
 const { connectors } = getDefaultWallets({
   appName: "Nucleus",
