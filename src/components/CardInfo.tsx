@@ -6,10 +6,21 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react"
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { KycModal } from "./onboarding/KycModal";
 
 export const CardInfo = () => {
+  const { openConnectModal } = useConnectModal();
+  console.log('openConnectModal: ', openConnectModal);
   const { isOpen: isKycOpen, onOpen: onKycOpen, onClose: onKycClose } = useDisclosure();
+
+  const getCardClick = async () => {
+    if (!openConnectModal) {
+      onKycOpen();
+    } else {
+      openConnectModal();
+    }
+  }
   
   return (
     <VStack w="full" h="100%" borderColor="white" borderWidth={6} borderRadius={36} flexGrow={1}>
@@ -20,10 +31,10 @@ export const CardInfo = () => {
           SPEND IT IF YOU ARE FAST ENOUGH
         </Text>
         </Box>
-        <Button onClick={() => onKycOpen()} w='100%' colorScheme='teal' mb='20px' ml='40px' mr='40px' fontSize='1.75em' p='30px'>
+        <Button onClick={() => getCardClick()} w='100%' colorScheme='teal' mb='20px' ml='40px' mr='40px' fontSize='1.75em' p='30px'>
           GET A CARD -&gt;
         </Button>
-        {isKycOpen && <KycModal isOpen={isKycOpen} onOpen={onKycOpen} onClose={onKycClose} />}
+        {onKycOpen && <KycModal isOpen={isKycOpen} onOpen={onKycOpen} onClose={onKycClose} />}
       </VStack>
     </VStack>
   );
