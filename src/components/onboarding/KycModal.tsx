@@ -27,6 +27,7 @@ import {
   formikWrappedInputPhoneNumber,
   formikWrappedSelect
 } from "../../utils/formikHelperComponents";
+import { useAccount } from "wagmi";
 import { COUNTRIES } from "./countries";
 
 interface KycModalProps {
@@ -37,6 +38,7 @@ interface KycModalProps {
 
 export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
   const [kycStatus, setKycStatus] = useState<string>("notStarted");
+  const { address } = useAccount();
 
   // iso2 is what iban uses that Solid requires: https://www.iban.com/country-codes
   const countryOptions = COUNTRIES.map(({ name, iso2 }: any) => ({
@@ -61,7 +63,8 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   const submit = async (values: any) => {
-    await BankingService.createPerson({
+    console.log('Values: ', values);
+    await BankingService.createPerson(address, {
       firstName: values.firstName,
       lastName: values.lastName,
       phone: values.phone,

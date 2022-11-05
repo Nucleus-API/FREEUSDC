@@ -34,16 +34,17 @@ export type Business = {
 };
 
 export const BankingService = {
-  createPerson: (person: Person) => {
+  createPerson: (walletAddress: string, person: Person) => {
     return axios
       .post(
-        `${process.env.REACT_APP_BASE_API_URL}kyc/hackathon`,
+        `${process.env.REACT_APP_BASE_API_URL}identity/kyc/hackathon`,
         {
+          walletAddress,
           ...person,
         },
         {
           headers: {
-            API_KEY_HEADER: process.env.REACT_APP_API_ORG_ID!,
+            'x-api-key': process.env.REACT_APP_API_ORG_ID!,
           },
         }
       )
@@ -53,11 +54,11 @@ export const BankingService = {
   kycStatus: (walletAddress: string) => {
     return axios
       .get(
-        `${process.env.REACT_APP_BASE_API_URL}kyc/status`,
+        `${process.env.REACT_APP_BASE_API_URL}identity/kyc/status`,
         {
           headers: {
-            API_KEY_HEADER: process.env.REACT_APP_API_ORG_ID!,
-            WALLET_ADDRESS: walletAddress,
+            'x-api-key': process.env.REACT_APP_API_ORG_ID!,
+            'x-address': walletAddress,
           },
         }
       )
