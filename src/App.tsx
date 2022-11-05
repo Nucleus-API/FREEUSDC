@@ -3,7 +3,7 @@ import "@fontsource/roboto-mono";
 import { Box, ChakraProvider, HStack, Image, SimpleGrid, Text, VStack, theme } from "@chakra-ui/react";
 
 import { CardInfo } from "./components/CardInfo";
-import { TransactionHistory } from "./components/TransactionHistory";
+import { TransactionHistory } from "./components/transactions/TransactionHistory";
 
 export const App = () => {
   document.body.style.backgroundColor = "#000000";
