@@ -14,11 +14,11 @@ export default function IdInput({
   isInvalid,
   onChange,
   ...rest
-}) {
+}: any) {
   let [number, setNumber] = useState(value || "");
   let [idType, setIdType] = useState("ssn");
 
-  const onIdTypeChange = e => {
+  const onIdTypeChange = (e: any) => {
     let value = e.target.value;
     setIdType(value);
     onChange({
@@ -27,7 +27,7 @@ export default function IdInput({
     });
   };
 
-  const onIdChange = e => {
+  const onIdChange = (e: any) => {
     let value = e.target.value;
     setNumber(value);
     onChange({
@@ -50,7 +50,7 @@ export default function IdInput({
           isInvalid={false}
           isDisabled={isDisabled}
         >
-          {options.map(option => (
+          {options.map((option: any) => (
               <option value={option.value}>{option.label}</option>
           ))}
         </Select>
@@ -59,7 +59,7 @@ export default function IdInput({
         {...rest}
         ml="10px"
         w="100%"
-        placeholder={options.filter(option => option.value === idType)[0].placeholder}
+        placeholder={options.filter((option: any) => option.value === idType)[0].placeholder}
         size={size}
         type="tel"
         onChange={onIdChange}

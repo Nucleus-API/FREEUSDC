@@ -3,9 +3,9 @@ import { Field } from "formik"
 import { AsYouType } from "libphonenumber-js";
 import { ethers } from "ethers";
 import * as yup from 'yup';
-import PhoneNumberInput from "components/onboarding/PhoneNumberInput";
-import { COUNTRIES } from "components/onboarding/countries";
-import IdInput from "components/onboarding/IdInput";
+import PhoneNumberInput from "../components/onboarding/PhoneNumberInput";
+import { COUNTRIES } from "../components/onboarding/countries";
+import IdInput from "../components/onboarding/IdInput";
 
 export const formikWrappedInput = (
   name: string,
@@ -18,7 +18,7 @@ export const formikWrappedInput = (
   isRequired: boolean = true,
 ) => {
   return (
-    <Field name={name} validate={isRequired ? (value) => !value ? `${friendlyName} is required` : undefined : null}>
+    <Field name={name} validate={isRequired ? (value: any) => !value ? `${friendlyName} is required` : undefined : null}>
       {formikFormControlInput(name, friendlyName, disabled, styling, label, showPlaceholder, placeholder, isRequired)}
     </Field>
   )
@@ -33,7 +33,7 @@ export const formikWrappedInputWalletAddress = (
   placeholder: string = friendlyName,
 ) => {
   return (
-    <Field name={name} validate={async (value) => {
+    <Field name={name} validate={async (value: any) => {
         if (!value) {
           return `${friendlyName} is required`;
         }
@@ -46,7 +46,7 @@ export const formikWrappedInputWalletAddress = (
   )
 }
 
-const countryOptions = COUNTRIES.map(({ name, iso }) => ({
+const countryOptions = COUNTRIES.map(({ name, iso }: any) => ({
   label: name,
   value: iso
 }));
@@ -58,18 +58,18 @@ export const formikWrappedInputPhoneNumber = (
   label: boolean = false,
 ) => {
   return (
-    <Field name={name} validate={(value) => {
+    <Field name={name} validate={(value: any) => {
       if (!value || value === '') {
         return `${friendlyName} is required`;
       }
 
       const asYouType = new AsYouType();
       asYouType.input(value);
-      if (!asYouType.getNumber() || !asYouType.getNumber().isValid()) {
+      if (!asYouType.getNumber() || !asYouType.getNumber()!.isValid()) {
         return `Invalid phone number`;
       }
     }}>
-    {({ field, form }) => (
+    {({ field, form }: any) => (
       <FormControl {...styling} isInvalid={form.errors[name] && form.submitCount > 0} isRequired>
         {label ? <FormLabel>{friendlyName}</FormLabel> : <></>}
           <PhoneNumberInput
@@ -77,45 +77,7 @@ export const formikWrappedInputPhoneNumber = (
             isDisabled={disabled}
             isInvalid={form.errors[name] && form.submitCount > 0}
             {...field}
-            onChange={(value) => form.setFieldValue(field.name, value)}
-          />
-        <FormErrorMessage>{form.errors[name]}</FormErrorMessage>
-      </FormControl>
-    )}
-    </Field>
-  )
-}
-export const formikWrappedInputTaxId = (
-  name: string,
-  friendlyName: string,
-  disabled: boolean,
-  styling?: {},
-  label: boolean = false,
-) => {
-  return (
-    <Field name={name} validate={(data) => {
-      if (!data || !data.taxId || data.taxId === '') {
-        return `${friendlyName} is required`;
-      }
-
-      if (data.taxCountry === 'USA') {
-        const regexes = [/^[1-9]\d?-\d{7}$/, /^\d{9}$/];
-        if (regexes.map(regex => data.taxId.match(new RegExp(regex))).filter(match => match && match !== null).length === 0) {
-          return 'Invalid USA Tax ID';
-        }
-      } else {
-        // TODO: Tax id validation for non-US
-      }
-    }}>
-    {({ field, form }) => (
-      <FormControl {...styling} isInvalid={form.errors[name] && form.submitCount > 0} isRequired>
-        {label ? <FormLabel>{friendlyName}</FormLabel> : <></>}
-          <TaxNumberInput
-            options={countryOptions}
-            isDisabled={disabled}
-            isInvalid={form.errors[name] && form.submitCount > 0}
-            {...field}
-            onChange={(value) => form.setFieldValue(field.name, value)}
+            onChange={(value: any) => form.setFieldValue(field.name, value)}
           />
         <FormErrorMessage>{form.errors[name]}</FormErrorMessage>
       </FormControl>
@@ -144,7 +106,7 @@ export const formikWrappedInputID = (
   label: boolean = false,
 ) => {
   return (
-    <Field name={name} validate={(value) => {
+    <Field name={name} validate={(value: any) => {
       if (!value || !value.number) {
         return `${friendlyName} is required`;
       }
@@ -158,7 +120,7 @@ export const formikWrappedInputID = (
         // TODO: Passport number validation
       }
     }}>
-    {({ field, form }) => (
+    {({ field, form }: any) => (
       <FormControl {...styling} isInvalid={form.errors[name] && form.submitCount > 0} isRequired>
         {label ? <FormLabel>{friendlyName}</FormLabel> : <></>}
           <IdInput
@@ -166,7 +128,7 @@ export const formikWrappedInputID = (
             isDisabled={disabled}
             isInvalid={form.errors[name] && form.submitCount > 0}
             {...field}
-            onChange={(value) => form.setFieldValue(field.name, value)}
+            onChange={(value: any) => form.setFieldValue(field.name, value)}
           />
         <FormErrorMessage pl="160px">{form.errors[name]}</FormErrorMessage>
       </FormControl>
@@ -184,7 +146,7 @@ export const formikWrappedInputEmail = (
   placeholder?: string,
 ) => {
   return (
-    <Field name={name} validate={async (value) => {
+    <Field name={name} validate={async (value: any) => {
         if (!value) {
           return `${friendlyName} is required`;
         }
@@ -206,7 +168,7 @@ export const formikWrappedInputDate = (
   placeholder?: string,
 ) => {
   return (
-    <Field name={name} validate={async (value) => {
+    <Field name={name} validate={async (value: any) => {
         if (!value) {
           return `${friendlyName} is required`;
         }
@@ -232,7 +194,7 @@ export const formikWrappedSelect = (
   placeholder: string = `Select ${friendlyName}`,
 ) => {
   return (
-    <Field name={name} validate={(value) => !value ? `${friendlyName} is required` : undefined}>
+    <Field name={name} validate={(value: any) => !value ? `${friendlyName} is required` : undefined}>
       {formikFormControlSelect(name, friendlyName, options, disabled, styling, label, showPlaceholder, placeholder)}
     </Field>
   )
@@ -248,7 +210,7 @@ export const formikWrappedInputRegex = (
   placeholder?: string,
 ) => {
   return (
-    <Field name={name} validate={async (value) => {
+    <Field name={name} validate={async (value: any) => {
         if (!value) {
           return `${friendlyName} is required`;
         }
@@ -271,7 +233,7 @@ export const formikFormControlInput = (
   placeholder?: string,
   isRequired: boolean = true,
 ) => 
-  ({ field, form }) => (
+  ({ field, form }: any) => (
     <FormControl {...styling} isInvalid={form.errors[name] && form.submitCount > 0} isRequired={isRequired}>
       {label ? <FormLabel>{friendlyName}</FormLabel> : <></>}
       <Input
@@ -298,7 +260,7 @@ export const formikFormControlSelect = (
   showPlaceholder: boolean = true,
   placeholder?: string
 ) => 
-  ({ field, form }) => (
+  ({ field, form }: any) => (
     <FormControl {...styling} isInvalid={form.errors[name] && form.submitCount > 0} isRequired>
       {label ? <FormLabel>{friendlyName}</FormLabel> : <></>}
       <Select

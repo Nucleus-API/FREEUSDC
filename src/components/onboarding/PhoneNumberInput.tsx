@@ -12,7 +12,7 @@ export default function PhoneNumberInput({
   isInvalid,
   onChange,
   ...rest
-}) {
+}: any) {
   const initialCountry = "USA";
   let [selectedCountry, setSelectedCountry] = useState(country || initialCountry);
 

@@ -16,8 +16,8 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
-import { BankingService } from "../services/BankingService";
-import { TreasuryButton } from "./TreasuryButton";
+import { BankingService } from "../../services/BankingService";
+import { TreasuryButton } from "../TreasuryButton";
 import { Form, Formik } from "formik";
 import {
   formikWrappedInput,
@@ -26,7 +26,7 @@ import {
   formikWrappedInputID,
   formikWrappedInputPhoneNumber,
   formikWrappedSelect
-} from "../utils/formikHelperComponents";
+} from "../../utils/formikHelperComponents";
 import { COUNTRIES } from "./countries";
 
 interface KycModalProps {
@@ -61,6 +61,7 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
 
   const fetchKycStatus = async () => {
     const response = await BankingService.kycStatus();
+    console.log(response);
     setKycStatus(response.status);
 
     setDisabled(true);
