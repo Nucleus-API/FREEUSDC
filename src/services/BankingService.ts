@@ -37,102 +37,27 @@ export const BankingService = {
   createPerson: (person: Person) => {
     return axios
       .post(
-        `${process.env.REACT_APP_BASE_URL}banking/createPerson`,
+        `${process.env.REACT_APP_BASE_API_URL}kyc/hackathon`,
         {
           ...person,
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            API_KEY_HEADER: process.env.REACT_APP_API_ORG_ID!,
           },
         }
       )
       .then((res) => res.data);
   },
 
-  getIdv: () => {
+  kycStatus: (walletAddress: string) => {
     return axios
       .get(
-        `${process.env.REACT_APP_BASE_URL}banking/idv`,
+        `${process.env.REACT_APP_BASE_API_URL}kyc/status`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then((res) => res.data);
-  },
-
-  createBusiness: (business: Business) => {
-    return axios
-      .post(
-        `${process.env.REACT_APP_BASE_URL}banking/createBusiness`,
-        {
-          ...business,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then((res) => res.data);
-  },
-
-  kycStatus: () => {
-    return axios
-      .post(
-        `${process.env.REACT_APP_BASE_URL}banking/kycStatus`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then((res) => res.data);
-  },
-
-  kybStatus: (daoId: number) => {
-    return axios
-      .post(
-        `${process.env.REACT_APP_BASE_URL}banking/kybStatus`,
-        {
-          daoId: daoId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then((res) => res.data);
-  },
-
-  acceptUserTerms: () => {
-    return axios
-      .post(
-        `${process.env.REACT_APP_BASE_URL}banking/acceptUserTerms`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then((res) => res.data);
-  },
-
-  acceptBusinessTerms: (daoId: number) => {
-    return axios
-      .post(
-        `${process.env.REACT_APP_BASE_URL}banking/acceptBusinessTerms`,
-        {
-          daoId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            API_KEY_HEADER: process.env.REACT_APP_API_ORG_ID!,
+            WALLET_ADDRESS: walletAddress,
           },
         }
       )

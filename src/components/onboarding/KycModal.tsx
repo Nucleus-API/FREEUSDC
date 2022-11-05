@@ -36,7 +36,6 @@ interface KycModalProps {
 }
 
 export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
-  const [disabled, setDisabled] = useState<boolean>(false);
   const [kycStatus, setKycStatus] = useState<string>("notStarted");
 
   // iso2 is what iban uses that Solid requires: https://www.iban.com/country-codes
@@ -46,29 +45,16 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
   }));
 
   const resetState = () => {
-    setDisabled(false);
     setKycStatus("notStarted");
   }
 
   useEffect(() => {
     if (isOpen) {
       amplitude.track("KYC Modal Open");
-      fetchKycStatus();
     }
 
     // eslint-disable-next-line
   }, [isOpen]);
-
-  const fetchKycStatus = async () => {
-    const response = await BankingService.kycStatus();
-    console.log(response);
-    setKycStatus(response.status);
-
-    setDisabled(true);
-    if (response.status === "notStarted") {
-      setDisabled(false);
-    }
-  };
 
   // Hacky
   function timeout(ms: any) {
@@ -140,25 +126,25 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
                   </Text>
                   
                   <Flex w="full" gap="10px">
-                    {formikWrappedInput('firstName', 'First Name', props.isSubmitting || disabled, {}, true, false)}
-                    {formikWrappedInput('lastName', 'Last Name', props.isSubmitting || disabled, {}, true, false)}
+                    {formikWrappedInput('firstName', 'First Name', props.isSubmitting, {}, true, false)}
+                    {formikWrappedInput('lastName', 'Last Name', props.isSubmitting, {}, true, false)}
                   </Flex>
                   <Flex w="full" gap="10px">
-                    {formikWrappedInputPhoneNumber('phone', 'Phone Number', props.isSubmitting || disabled, {}, true)}
-                    {formikWrappedInputEmail('email', 'Email', props.isSubmitting || disabled, {}, true, 'test@example.com')}
+                    {formikWrappedInputPhoneNumber('phone', 'Phone Number', props.isSubmitting, {}, true)}
+                    {formikWrappedInputEmail('email', 'Email', props.isSubmitting, {}, true, 'test@example.com')}
                   </Flex>
                   <Flex w="full" gap="10px">
-                    {formikWrappedInputDate('dateOfBirth', 'Date of Birth', props.isSubmitting || disabled, {}, true, '1980-01-30')}
-                    {formikWrappedInputID('id', 'ID Number', props.isSubmitting || disabled, {}, true)}
+                    {formikWrappedInputDate('dateOfBirth', 'Date of Birth', props.isSubmitting, {}, true, '1980-01-30')}
+                    {formikWrappedInputID('id', 'ID Number', props.isSubmitting, {}, true)}
                   </Flex>
                   <HStack w="full" gap="10px">
-                    {formikWrappedInput('line1', 'Address', props.isSubmitting || disabled, {width: "67%"}, true, false)}
-                    {formikWrappedInput('city', 'City', props.isSubmitting || disabled, {marginLeft: "0 !important", width: "33%"}, true, false)}
+                    {formikWrappedInput('line1', 'Address', props.isSubmitting, {width: "67%"}, true, false)}
+                    {formikWrappedInput('city', 'City', props.isSubmitting, {marginLeft: "0 !important", width: "33%"}, true, false)}
                   </HStack>
                   <Flex w="full" gap="10px">
-                    {formikWrappedInput('state', 'State/Province', props.isSubmitting || disabled, {}, true, false, 'State/Province', false)}
-                    {formikWrappedInput('postalCode', 'Zip Code', props.isSubmitting || disabled, {}, true)}
-                    {formikWrappedSelect('country', 'Country', countryOptions, props.isSubmitting || disabled, {}, true, true)}
+                    {formikWrappedInput('state', 'State/Province', props.isSubmitting, {}, true, false, 'State/Province', false)}
+                    {formikWrappedInput('postalCode', 'Zip Code', props.isSubmitting, {}, true)}
+                    {formikWrappedSelect('country', 'Country', countryOptions, props.isSubmitting, {}, true, true)}
                   </Flex>
                 </VStack>
               </ModalBody>
@@ -167,7 +153,6 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
                   type='submit'
                   title="Submit"
                   w="fit"
-                  disabled={disabled}
                   isLoading={props.isSubmitting}
                 />
               </ModalFooter>
