@@ -16,15 +16,13 @@ export const App = () => {
           </Text>
         </VStack>
 
-        <HStack h="full" w="full" spacing={10}>
+        <HStack h="full" w="full" spacing={10} alignItems="flex-start">
           <Box h="calc(100vh)" w="19px" bg="#8526FE" />
-          <Image src="./FREEUSDC.png" h="90vh" />
+          <Image src="./FREEUSDC.png" h="100vh" pt={2} pb={2} />
 
-          <SimpleGrid columns={2} w="full" h="full" gap={10} pt={2.5} pr={10}>
-            <GridItem minW="200px" h="100vh" bg="black" borderWidth={6} borderColor="white" borderRadius={36} />
-            <GridItem minW="200px" h="100vh" bg="black" borderWidth={6} borderColor="white" borderRadius={36}>
-              <TransactionHistory />
-            </GridItem>
+          <SimpleGrid columns={{ md: 1, lg: 2, xl: 2 }} spacing={10} w="full" h="100vh" pt={2.5} pr={10} pb={6}>
+            <TransactionHistory />
+            <TransactionHistory />
           </SimpleGrid>
         </HStack>
       </VStack>
