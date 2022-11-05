@@ -6,17 +6,24 @@ import {
   theme,
   GridItem,
 } from "@chakra-ui/react"
+import { InfoSection } from "./components/InfoSection"
 
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Box backgroundColor='black' h='100vh'>
       <Grid
-        templateColumns='200px 4fr 4fr'
+        templateColumns='300px 1fr 1fr'
         templateAreas={`"logo card transactions"`}
       >
-        <GridItem minW='200px' h='100vh' bg='white' area={'logo'} />
-        <GridItem minW='200px' h='100vh' bg='tomato' area={'card'} />
-        <GridItem minW='200px' h='100vh' bg='papayawhip' area={'transactions'}/>
+        <GridItem minW='200px' p='20px' h='100vh' area={'logo'}>
+
+        </GridItem>
+        <GridItem minW='200px' p='20px' h='100vh' area={'card'}>
+          <InfoSection />
+        </GridItem>
+        <GridItem minW='200px' p='20px' h='100vh' area={'transactions'}>
+          <InfoSection />
+        </GridItem>
       </Grid>
     </Box>
   </ChakraProvider>
