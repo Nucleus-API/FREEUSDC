@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react"
 import { KycModal } from "./onboarding/KycModal";
 
-export const InfoSection = () => {
+export const CardInfo = () => {
   const { isOpen: isKycOpen, onOpen: onKycOpen, onClose: onKycClose } = useDisclosure();
   
   return (

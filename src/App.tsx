@@ -1,8 +1,8 @@
 import "@fontsource/roboto-mono";
 
-import { Box, ChakraProvider, Grid, GridItem, HStack, Image, SimpleGrid, Text, VStack, theme } from "@chakra-ui/react";
-import { InfoSection } from "./components/InfoSection";
+import { Box, ChakraProvider, HStack, Image, SimpleGrid, Text, VStack, theme } from "@chakra-ui/react";
 
+import { CardInfo } from "./components/CardInfo";
 import { TransactionHistory } from "./components/TransactionHistory";
 
 export const App = () => {
@@ -22,7 +22,7 @@ export const App = () => {
           <Image src="./FREEUSDC.png" h="100vh" pt={2} pb={2} />
 
           <SimpleGrid columns={{ md: 1, lg: 2, xl: 2 }} spacing={10} w="full" h="100vh" pt={2.5} pr={10} pb={6}>
-            <InfoSection />
+            <CardInfo />
             <TransactionHistory />
           </SimpleGrid>
         </HStack>
