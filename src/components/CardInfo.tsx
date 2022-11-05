@@ -1,17 +1,20 @@
 import { Box, Button, HStack, Image, Text, VStack, useDisclosure } from "@chakra-ui/react";
 
 import { KycModal } from "./onboarding/KycModal";
+import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 export const CardInfo = () => {
+  const { isConnected } = useAccount();
   const { openConnectModal } = useConnectModal();
+
   const { isOpen: isKycOpen, onOpen: onKycOpen, onClose: onKycClose } = useDisclosure();
 
   const getCardClick = async () => {
-    if (!openConnectModal) {
+    if (isConnected) {
       onKycOpen();
     } else {
-      openConnectModal();
+      openConnectModal!();
     }
   };
 
