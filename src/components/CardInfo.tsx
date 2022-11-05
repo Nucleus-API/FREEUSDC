@@ -7,7 +7,11 @@ import { KycModal } from "./onboarding/KycModal";
 import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
-export const CardInfo = () => {
+type CardInfoProps = {
+  cards: any[];
+};
+
+export const CardInfo = (props: CardInfoProps) => {
   const { isConnected, address } = useAccount();
   const [kycStatus, setKycStatus] = useState<string>("notStarted");
   const { openConnectModal } = useConnectModal();
@@ -75,7 +79,7 @@ export const CardInfo = () => {
           All cards are connected to the same wallet. Race to spend it before others.
         </Text>
 
-        <Card />
+        <Card cards={props.cards} />
 
         <VStack spacing={4} alignItems="flex-start">
           <HStack spacing={8}>

@@ -44,7 +44,7 @@ export const BankingService = {
         },
         {
           headers: {
-            'x-api-key': process.env.REACT_APP_API_ORG_ID!,
+            "x-api-key": process.env.REACT_APP_API_ORG_ID!,
           },
         }
       )
@@ -53,15 +53,12 @@ export const BankingService = {
 
   kycStatus: (walletAddress: string) => {
     return axios
-      .get(
-        `${process.env.REACT_APP_BASE_API_URL}identity/kyc/status`,
-        {
-          headers: {
-            'x-api-key': process.env.REACT_APP_API_ORG_ID!,
-            'x-wallet-address': walletAddress,
-          },
-        }
-      )
+      .get(`${process.env.REACT_APP_BASE_API_URL}identity/kyc/status`, {
+        headers: {
+          "x-api-key": process.env.REACT_APP_API_ORG_ID!,
+          "x-wallet-address": walletAddress,
+        },
+      })
       .then((res) => res.data);
   },
 
@@ -69,8 +66,8 @@ export const BankingService = {
     return axios
       .get(`${process.env.REACT_APP_BASE_API_URL}card/consumer/list`, {
         headers: {
-          'x-api-key': process.env.REACT_APP_API_ORG_ID!,
-          'x-wallet-address': walletAddress,
+          "x-api-key": process.env.REACT_APP_API_ORG_ID!,
+          "x-wallet-address": walletAddress,
         },
       })
       .then((res) => res.data);
@@ -79,15 +76,26 @@ export const BankingService = {
   createCardToken: async (walletAddress: string) => {
     return axios
       .post(
-        `${process.env.REACT_APP_BASE_URL}card/consumer/cardToken`,
+        `${process.env.REACT_APP_BASE_API_URL}card/consumer/cardToken`,
         {},
         {
           headers: {
-            'x-api-key': process.env.REACT_APP_API_ORG_ID!,
-            'x-wallet-address': walletAddress,
+            "x-api-key": process.env.REACT_APP_API_ORG_ID!,
+            "x-wallet-address": walletAddress,
           },
         }
       )
+      .then((res) => res.data);
+  },
+
+  listTransactions: async (walletAddress: string, cardId: string) => {
+    return axios
+      .get(`${process.env.REACT_APP_BASE_API_URL}card/consumer/transaction/list/${cardId}`, {
+        headers: {
+          "x-api-key": process.env.REACT_APP_API_ORG_ID!,
+          "x-wallet-address": walletAddress,
+        },
+      })
       .then((res) => res.data);
   },
 };

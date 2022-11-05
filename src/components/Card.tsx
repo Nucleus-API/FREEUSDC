@@ -1,24 +1,22 @@
-import { VStack, HStack, Text, Spacer } from "@chakra-ui/react";
-import { VGSCardNumber } from "components/VGSCardNumber";
-import { useEffect } from "react";
-import { useState } from "react";
-import { VGSCVV } from "components/VGSCVV";
+import "@fontsource/montserrat/700.css";
+
+import { HStack, Spacer, Text, VStack } from "@chakra-ui/react";
 
 import { BankingService } from "services/BankingService";
-import "@fontsource/montserrat/700.css";
+import { VGSCVV } from "components/VGSCVV";
+import { VGSCardNumber } from "components/VGSCardNumber";
 import { useAccount } from "wagmi";
+import { useEffect } from "react";
+import { useState } from "react";
 
-export const Card = () => {
+type CardProps = {
+  cards: any[];
+};
+
+export const Card = (props: CardProps) => {
   const { address } = useAccount();
-  const [cards, setCards] = useState([]);
+  const { cards } = props;
   const [cardToken, setCardToken] = useState<any>();
-
-
-  useEffect(() => {
-    listCards();
-
-    // eslint-disable-next-line
-  }, []);
 
   useEffect(() => {
     if (cards.length !== 0) {
@@ -28,31 +26,21 @@ export const Card = () => {
     // eslint-disable-next-line
   }, [cards]);
 
-  const listCards = async () => {
-    const response = await BankingService.listCards(address);
-    setCards(response);
-  };
-
-
-
   const fetchCardToken = async () => {
     const response = await BankingService.createCardToken(address);
     setCardToken(response);
   };
-
-
 
   if (cards && cards.length === 0) {
     return (
       <VStack>
         <Text>No card state</Text>
       </VStack>
-    )
+    );
   }
 
   const card = cards[0];
   return (
-
     <VStack alignItems="flex-start" spacing={6}>
       <VStack
         w="303px"
@@ -84,7 +72,6 @@ export const Card = () => {
       {/* CARD DETAILS */}
       <VStack alignItems="flex-start" spacing={5}>
         <VStack alignItems="flex-start">
-
           <VStack alignItems={"flex-start"}>
             {cardToken && <VGSCardNumber showToken={cardToken.showToken} solidCardId={cardToken.id} />}
           </VStack>
@@ -109,10 +96,7 @@ export const Card = () => {
             </VStack>
           </VStack>
         </HStack>
-
-
       </VStack>
-
     </VStack>
   );
-}
+};
