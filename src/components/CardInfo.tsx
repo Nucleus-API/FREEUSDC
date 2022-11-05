@@ -8,7 +8,7 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 export const CardInfo = () => {
   const { isConnected } = useAccount();
   const { openConnectModal } = useConnectModal();
-  const [ justConnected, setJustConnected ] = useState<boolean | undefined>(false);
+  const [justConnected, setJustConnected] = useState<boolean | undefined>(false);
 
   const { isOpen: isKycOpen, onOpen: onKycOpen, onClose: onKycClose } = useDisclosure();
 
@@ -19,13 +19,15 @@ export const CardInfo = () => {
       openConnectModal!();
       setJustConnected(true);
     }
-  }
+  };
 
   useEffect(() => {
     if (isConnected && justConnected) {
       onKycOpen();
     }
-  }, [isConnected, justConnected])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected, justConnected]);
 
   return (
     <VStack w="full" h="100%" borderColor="white" borderWidth={6} borderRadius={36} flexGrow={1}>
