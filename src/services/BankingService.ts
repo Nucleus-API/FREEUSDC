@@ -58,31 +58,33 @@ export const BankingService = {
         {
           headers: {
             'x-api-key': process.env.REACT_APP_API_ORG_ID!,
-            'x-address': walletAddress,
+            'x-wallet-address': walletAddress,
           },
         }
       )
       .then((res) => res.data);
   },
 
-  listCards: async () => {
+  listCards: async (walletAddress: string) => {
     return axios
-      .get(`${process.env.REACT_APP_BASE_API_URL}/cards/consumer/list`, {
+      .get(`${process.env.REACT_APP_BASE_API_URL}card/consumer/list`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          'x-api-key': process.env.REACT_APP_API_ORG_ID!,
+          'x-wallet-address': walletAddress,
         },
       })
       .then((res) => res.data);
   },
 
-  createCardToken: async () => {
+  createCardToken: async (walletAddress: string) => {
     return axios
       .post(
-        `${process.env.REACT_APP_BASE_URL}nucleus/cardToken`,
+        `${process.env.REACT_APP_BASE_URL}card/consumer/cardToken`,
         {},
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            'x-api-key': process.env.REACT_APP_API_ORG_ID!,
+            'x-wallet-address': walletAddress,
           },
         }
       )

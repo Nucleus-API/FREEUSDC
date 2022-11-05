@@ -8,6 +8,7 @@
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "@fontsource/inter": "^4.5.14",
+    "@fontsource/montserrat": "^4.5.13",
     "@fontsource/roboto-mono": "^4.5.8",
     "@rainbow-me/rainbowkit": "^0.6.1",
     "@sentry/integrations": "^7.17.2",

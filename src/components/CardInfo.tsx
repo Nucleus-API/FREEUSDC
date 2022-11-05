@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { KycModal } from "./onboarding/KycModal";
 import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { Card } from "./onboarding/Card";
 
 export const CardInfo = () => {
   const { isConnected } = useAccount();
@@ -57,6 +58,8 @@ export const CardInfo = () => {
           <br />
           All cards are connected to the same wallet. Race to spend it before others.
         </Text>
+
+        <Card />
 
         <VStack spacing={4} alignItems="flex-start">
           <HStack spacing={8}>
