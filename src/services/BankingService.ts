@@ -63,6 +63,17 @@ export const BankingService = {
       .then((res) => res.data);
   },
 
+
+  listCards: async () => {
+    return axios
+      .get(`${process.env.REACT_APP_BASE_API_URL}/cards/consumer/list`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => res.data);
+  },
+
   createBusiness: (business: Business) => {
     return axios
       .post(
@@ -70,6 +81,20 @@ export const BankingService = {
         {
           ...business,
         },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then((res) => res.data);
+  },
+
+  createCardToken: async () => {
+    return axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}nucleus/cardToken`,
+        {},
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
