@@ -1,4 +1,5 @@
-import { Box, VStack, Text, Button, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Text, VStack, useDisclosure } from "@chakra-ui/react";
+
 import { KycModal } from "./onboarding/KycModal";
 
 export const CardInfo = () => {
@@ -10,18 +11,22 @@ export const CardInfo = () => {
         <Box flexGrow={1}>
           <Text fontFamily="Roboto Mono" fontWeight="bold" color="white" fontSize={32}>
             HUNDREDS OF CARDS, ONE WALLET: <br />
-            SPEND IT IF YOU ARE FAST ENOUGH
+            SPEND IT IF YOU'RE FAST ENOUGH
           </Text>
         </Box>
         <Button
           onClick={() => onKycOpen()}
           w="100%"
-          colorScheme="teal"
+          bg="#8526FE"
           mb="20px"
           ml="40px"
           mr="40px"
           fontSize="1.75em"
           p="30px"
+          color="white"
+          _hover={{
+            bg: "#9D53FB",
+          }}
         >
           GET A CARD -&gt;
         </Button>
