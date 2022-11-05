@@ -10,7 +10,7 @@ import { WagmiConfig, chain, configureChains, createClient } from "wagmi";
 import { Box, ChakraProvider, HStack, Image, SimpleGrid, Text, VStack, theme } from "@chakra-ui/react";
 
 import { CardInfo } from "./components/CardInfo";
-import { TransactionHistory } from "./components/TransactionHistory";
+import { TransactionHistory } from "./components/transactions/TransactionHistory";
 
 const { chains, provider } = configureChains(
   [process.env.REACT_APP_STAGE === "dev" ? chain.goerli : chain.mainnet],
