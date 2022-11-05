@@ -1,28 +1,12 @@
 import "@fontsource/roboto-mono";
 
 import { Box, ChakraProvider, HStack, Image, SimpleGrid, Text, VStack, theme } from "@chakra-ui/react";
-import { chain, configureChains, createClient, useAccount } from "wagmi";
 import { useEffect, useState } from "react";
 
 import { BankingService } from "services/BankingService";
 import { CardInfo } from "./components/CardInfo";
 import { TransactionHistory } from "./components/transactions/TransactionHistory";
-import { getDefaultWallets } from "@rainbow-me/rainbowkit";
-import { infuraProvider } from "wagmi/providers/infura";
-
-const { chains, provider } = configureChains(
-  [process.env.REACT_APP_STAGE === "dev" ? chain.goerli : chain.mainnet],
-  [infuraProvider({ apiKey: process.env.REACT_APP_INFURA_KEY })]
-);
-const { connectors } = getDefaultWallets({
-  appName: "Nucleus",
-  chains,
-});
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
-  provider,
-});
+import { useAccount } from "wagmi";
 
 export const App = () => {
   document.body.style.backgroundColor = "#000000";
