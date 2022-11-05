@@ -58,7 +58,7 @@ export const BankingService = {
         {
           headers: {
             'x-api-key': process.env.REACT_APP_API_ORG_ID!,
-            'x-address': walletAddress,
+            'x-wallet-address': walletAddress,
           },
         }
       )

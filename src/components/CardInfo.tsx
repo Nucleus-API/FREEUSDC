@@ -1,12 +1,14 @@
-import { Box, Button, HStack, Image, Text, VStack, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, HStack, Image, Text, VStack, useDisclosure, Alert, AlertIcon } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 import { KycModal } from "./onboarding/KycModal";
 import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { BankingService } from "../services/BankingService";
 
 export const CardInfo = () => {
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
+  const [kycStatus, setKycStatus] = useState<string>("notStarted");
   const { openConnectModal } = useConnectModal();
   const [justConnected, setJustConnected] = useState<boolean | undefined>(false);
 
@@ -19,6 +21,20 @@ export const CardInfo = () => {
       openConnectModal!();
       setJustConnected(true);
     }
+  };
+
+  useEffect(() => {
+    if (address) {
+      fetchKycStatus(address).then((status) => {
+        setKycStatus(status);
+      })
+    }
+  }, [address]);
+
+  const fetchKycStatus = async (walletAddress: string) => {
+    const response = await BankingService.kycStatus(walletAddress);
+    console.log(response);
+    return response.status;
   };
 
   useEffect(() => {
@@ -80,24 +96,29 @@ export const CardInfo = () => {
             </Text>
           </HStack>
         </VStack>
-
-        <Button
-          onClick={() => getCardClick()}
-          fontFamily="Roboto Mono"
-          w="100%"
-          bg="#8526FE"
-          mb="20px"
-          ml="40px"
-          mr="40px"
-          fontSize="1.75em"
-          p="30px"
-          color="white"
-          _hover={{
-            bg: "#9D53FB",
-          }}
-        >
-          GET A CARD -&gt;
-        </Button>
+        {kycStatus !== "notStarted"
+          ? <Alert status='success' variant='subtle' borderRadius="10px">
+              <AlertIcon />
+              <strong>Submitted! Refresh this page in a few minutes to see your card.</strong>
+            </Alert>
+          : <Button
+              onClick={() => getCardClick()}
+              fontFamily="Roboto Mono"
+              w="100%"
+              bg="#8526FE"
+              mb="20px"
+              ml="40px"
+              mr="40px"
+              fontSize="1.75em"
+              p="30px"
+              color="white"
+              _hover={{
+                bg: "#9D53FB",
+              }}
+            >
+              GET A CARD -&gt;
+            </Button>
+        }
         {onKycOpen && <KycModal isOpen={isKycOpen} onOpen={onKycOpen} onClose={onKycClose} />}
       </VStack>
     </VStack>
