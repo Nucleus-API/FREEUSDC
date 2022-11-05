@@ -16,6 +16,7 @@ import { KycModal } from "./onboarding/KycModal";
 export const CardInfo = () => {
   const { isConnected } = useAccount();
   const { openConnectModal } = useConnectModal();
+  const [ justConnected, setJustConnected ] = useState<boolean | undefined>(false);
 
   const { isOpen: isKycOpen, onOpen: onKycOpen, onClose: onKycClose } = useDisclosure();
 
@@ -24,8 +25,16 @@ export const CardInfo = () => {
       onKycOpen();
     } else {
       openConnectModal!();
+      setJustConnected(true);
     }
   }
+
+  useEffect(() => {
+    if (isConnected && justConnected) {
+      onKycOpen();
+    }
+  }, [isConnected, justConnected])
+
   return (
     <VStack w="full" h="100%" borderColor="white" borderWidth={6} borderRadius={36} flexGrow={1}>
       <VStack w="full" h="full" alignItems="flex-start" spacing={12} pt={6} pb={6} pr={10} pl={10}>
