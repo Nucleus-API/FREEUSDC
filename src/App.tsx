@@ -3,6 +3,8 @@ import "@fontsource/roboto-mono";
 import { Box, ChakraProvider, Grid, GridItem, HStack, Image, SimpleGrid, Text, VStack, theme } from "@chakra-ui/react";
 import { InfoSection } from "./components/InfoSection";
 
+import { TransactionHistory } from "./components/TransactionHistory";
+
 export const App = () => {
   document.body.style.backgroundColor = "#000000";
 
@@ -15,15 +17,13 @@ export const App = () => {
           </Text>
         </VStack>
 
-        <HStack h="full" w="full" spacing={10}>
+        <HStack h="full" w="full" spacing={10} alignItems="flex-start">
           <Box h="calc(100vh)" w="19px" bg="#8526FE" />
-          <Image src="./FREEUSDC.png" h="90vh" />
+          <Image src="./FREEUSDC.png" h="100vh" pt={2} pb={2} />
 
-          <SimpleGrid columns={2} w="full" h="full" gap={10} pt={2.5} pr={10}>
-            <GridItem minW="200px" h="100vh" bg="black" borderWidth={6} borderColor="white" borderRadius={36}>
-              <InfoSection />
-            </GridItem>
-            <GridItem minW="200px" h="100vh" bg="black" borderWidth={6} borderColor="white" borderRadius={36} />
+          <SimpleGrid columns={{ md: 1, lg: 2, xl: 2 }} spacing={10} w="full" h="100vh" pt={2.5} pr={10} pb={6}>
+            <InfoSection />
+            <TransactionHistory />
           </SimpleGrid>
         </HStack>
       </VStack>
