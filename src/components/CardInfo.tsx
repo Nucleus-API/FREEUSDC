@@ -1,16 +1,7 @@
-import { useEffect, useState } from "react";
-import {
-  Box,
-  HStack,
-  Image,
-  VStack,
-  Text,
-  Button,
-  useDisclosure,
-} from "@chakra-ui/react"
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { Box, Button, HStack, Image, Text, VStack, useDisclosure } from "@chakra-ui/react";
 
 import { KycModal } from "./onboarding/KycModal";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 export const CardInfo = () => {
   const { openConnectModal } = useConnectModal();
@@ -22,8 +13,8 @@ export const CardInfo = () => {
     } else {
       openConnectModal();
     }
-  }
-  
+  };
+
   return (
     <VStack w="full" h="100%" borderColor="white" borderWidth={6} borderRadius={36} flexGrow={1}>
       <VStack w="full" h="full" alignItems="flex-start" spacing={12} pt={6} pb={6} pr={10} pl={10}>
