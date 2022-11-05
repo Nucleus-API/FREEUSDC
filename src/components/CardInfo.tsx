@@ -23,20 +23,8 @@ export const CardInfo = () => {
         <Button onClick={() => onKycOpen()} w='100%' colorScheme='teal' mb='20px' ml='40px' mr='40px' fontSize='1.75em' p='30px'>
           GET A CARD -&gt;
         </Button>
+        {isKycOpen && <KycModal isOpen={isKycOpen} onOpen={onKycOpen} onClose={onKycClose} />}
       </VStack>
     </VStack>
-    // <Box p='20px' h='100%'>
-    //   <Flex flexDirection="column" h='100%'>
-    //     <Box flexGrow={1}>
-    //       <Box color='white' w='100%' h='100px'>
-    //         TEST
-    //       </Box>
-    //     </Box>
-    //     <Button onClick={() => onKycOpen()} colorScheme='teal' mb='20px' ml='40px' mr='40px' fontSize='1.75em' p='30px'>
-    //       GET A CARD -&gt;
-    //     </Button>
-    //   </Flex>
-    //   {isKycOpen && <KycModal isOpen={isKycOpen} onOpen={onKycOpen} onClose={onKycClose} />}
-    // </Box>
   );
 };
