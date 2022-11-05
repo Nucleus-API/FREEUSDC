@@ -90,13 +90,8 @@ const idOptions = [
   {
     label: 'SSN',
     value: 'ssn',
-    placeholder: 'SSN'
+    placeholder: 'US SSN (Social Security Number)'
   },
-  {
-    label: 'Passport',
-    value: 'passport',
-    placeholder: 'Passport Number'
-  }
 ]
 export const formikWrappedInputID = (
   name: string,

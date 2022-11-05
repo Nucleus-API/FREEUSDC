@@ -31,7 +31,7 @@ export default function PhoneNumberInput({
       isDisabled={isDisabled}
       isInvalid={isInvalid}
       onChange={onCountryInputChange}
-      placeholder={`${selectedCountry} phone number`}
+      placeholder={`${selectedCountry} phone number (without area code)`}
       {...rest}
     />
   )
