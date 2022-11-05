@@ -1,6 +1,6 @@
 import "@fontsource/roboto-mono";
 
-import { Box, ChakraProvider, Grid, GridItem, HStack, Image, SimpleGrid, Text, VStack, theme } from "@chakra-ui/react";
+import { Box, ChakraProvider, HStack, Image, SimpleGrid, Text, VStack, theme } from "@chakra-ui/react";
 
 import { TransactionHistory } from "./components/TransactionHistory";
 
