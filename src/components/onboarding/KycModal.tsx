@@ -14,10 +14,6 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-
-import { BankingService } from "../../services/BankingService";
-import { TreasuryButton } from "../TreasuryButton";
 import { Form, Formik } from "formik";
 import {
   formikWrappedInput,
@@ -25,10 +21,14 @@ import {
   formikWrappedInputEmail,
   formikWrappedInputID,
   formikWrappedInputPhoneNumber,
-  formikWrappedSelect
+  formikWrappedSelect,
 } from "../../utils/formikHelperComponents";
-import { useAccount } from "wagmi";
+
+import { BankingService } from "../../services/BankingService";
 import { COUNTRIES } from "./countries";
+import { TreasuryButton } from "../TreasuryButton";
+import { useAccount } from "wagmi";
+import { useEffect } from "react";
 
 interface KycModalProps {
   isOpen: boolean;
@@ -42,7 +42,7 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
   // iso2 is what iban uses that Solid requires: https://www.iban.com/country-codes
   const countryOptions = COUNTRIES.map(({ name, iso2 }: any) => ({
     label: name,
-    value: iso2
+    value: iso2,
   }));
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
 
   // Hacky
   function timeout(ms: any) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
   const submit = async (values: any) => {
     await BankingService.createPerson(address, {
@@ -71,7 +71,7 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
         line1: values.line1,
         line2: "",
         city: values.city,
-        state: (values.state && values.state !== "") ? values.state : values.city, // Default to city if state not present
+        state: values.state && values.state !== "" ? values.state : values.city, // Default to city if state not present
         country: values.country,
         postalCode: values.postalCode,
       },
@@ -94,13 +94,13 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
         <Formik
           initialValues={{}}
           onSubmit={async (values: any, actions) => {
-            const parsedNumber = `+${values.phone.replace(/\D/g,'')}`;
+            const parsedNumber = `+${values.phone.replace(/\D/g, "")}`;
             await submit({
               ...values,
               phone: parsedNumber,
               idType: values.id.idType,
-              idNumber: values.id.number.replaceAll('-', ''),
-            })
+              idNumber: values.id.number.replaceAll("-", ""),
+            });
             actions.setSubmitting(false);
           }}
         >
@@ -113,41 +113,53 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
                   <Alert status="info">
                     <AlertIcon />
                     <Text fontWeight="600" fontSize="14">
-                      Our bank partner is mandated by federal law (USA PATRIOT ACT) to collect this information. This information
-                      is never saved with Nucleus. It is only used to verify your identity and will not affect your credit score.
+                      Our bank partner is mandated by federal law (USA PATRIOT ACT) to collect this information. This
+                      information is never saved with Nucleus. It is only used to verify your identity and will not
+                      affect your credit score.
                     </Text>
                   </Alert>
-                  
+
                   <Flex w="full" gap="10px">
-                    {formikWrappedInput('firstName', 'First Name', props.isSubmitting, {}, true, false)}
-                    {formikWrappedInput('lastName', 'Last Name', props.isSubmitting, {}, true, false)}
+                    {formikWrappedInput("firstName", "First Name", props.isSubmitting, {}, true, false)}
+                    {formikWrappedInput("lastName", "Last Name", props.isSubmitting, {}, true, false)}
                   </Flex>
                   <Flex w="full" gap="10px">
-                    {formikWrappedInputPhoneNumber('phone', 'Phone Number', props.isSubmitting, {}, true)}
-                    {formikWrappedInputEmail('email', 'Email', props.isSubmitting, {}, true, 'test@example.com')}
+                    {formikWrappedInputPhoneNumber("phone", "Phone Number", props.isSubmitting, {}, true)}
+                    {formikWrappedInputEmail("email", "Email", props.isSubmitting, {}, true, "test@example.com")}
                   </Flex>
                   <Flex w="full" gap="10px">
-                    {formikWrappedInputDate('dateOfBirth', 'Date of Birth', props.isSubmitting, {}, true, '1980-01-30')}
-                    {formikWrappedInputID('id', 'ID Number', props.isSubmitting, {}, true)}
+                    {formikWrappedInputDate("dateOfBirth", "Date of Birth", props.isSubmitting, {}, true, "1980-01-30")}
+                    {formikWrappedInputID("id", "ID Number", props.isSubmitting, {}, true)}
                   </Flex>
                   <HStack w="full" gap="10px">
-                    {formikWrappedInput('line1', 'Address', props.isSubmitting, {width: "67%"}, true, false)}
-                    {formikWrappedInput('city', 'City', props.isSubmitting, {marginLeft: "0 !important", width: "33%"}, true, false)}
+                    {formikWrappedInput("line1", "Address", props.isSubmitting, { width: "67%" }, true, false)}
+                    {formikWrappedInput(
+                      "city",
+                      "City",
+                      props.isSubmitting,
+                      { marginLeft: "0 !important", width: "33%" },
+                      true,
+                      false
+                    )}
                   </HStack>
                   <Flex w="full" gap="10px">
-                    {formikWrappedInput('state', 'State/Province', props.isSubmitting, {}, true, false, 'State/Province', false)}
-                    {formikWrappedInput('postalCode', 'Zip Code', props.isSubmitting, {}, true)}
-                    {formikWrappedSelect('country', 'Country', countryOptions, props.isSubmitting, {}, true, true)}
+                    {formikWrappedInput(
+                      "state",
+                      "State/Province",
+                      props.isSubmitting,
+                      {},
+                      true,
+                      false,
+                      "State/Province",
+                      false
+                    )}
+                    {formikWrappedInput("postalCode", "Zip Code", props.isSubmitting, {}, true)}
+                    {formikWrappedSelect("country", "Country", countryOptions, props.isSubmitting, {}, true, true)}
                   </Flex>
                 </VStack>
               </ModalBody>
               <ModalFooter>
-                <TreasuryButton
-                  type='submit'
-                  title="Submit"
-                  w="fit"
-                  isLoading={props.isSubmitting}
-                />
+                <TreasuryButton type="submit" title="Submit" w="fit" isLoading={props.isSubmitting} />
               </ModalFooter>
             </Form>
           )}

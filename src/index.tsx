@@ -4,7 +4,6 @@ import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import * as serviceWorker from "./serviceWorker";
 
-import { App } from "./App";
 import { ColorModeScript } from "@chakra-ui/react";
 import { Root } from "Root";
 import reportWebVitals from "./reportWebVitals";
