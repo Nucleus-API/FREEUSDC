@@ -1,17 +1,9 @@
+import { Box, Button, HStack, Image, Text, VStack, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import {
-  Box,
-  HStack,
-  Image,
-  VStack,
-  Text,
-  Button,
-  useDisclosure,
-} from "@chakra-ui/react"
-import { useAccount } from "wagmi";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 import { KycModal } from "./onboarding/KycModal";
+import { useAccount } from "wagmi";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 export const CardInfo = () => {
   const { isConnected } = useAccount();
