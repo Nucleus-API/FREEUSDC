@@ -38,7 +38,6 @@ export const CardInfo = (props: CardInfoProps) => {
 
   const fetchKycStatus = async (walletAddress: string) => {
     const response = await BankingService.kycStatus(walletAddress);
-    console.log(response);
     return response.status;
   };
 

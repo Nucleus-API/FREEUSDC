@@ -88,9 +88,9 @@ export const BankingService = {
       .then((res) => res.data);
   },
 
-  listTransactions: async (walletAddress: string, cardId: string) => {
+  listTransactions: async (walletAddress: string) => {
     return axios
-      .get(`${process.env.REACT_APP_BASE_API_URL}card/consumer/transaction/list/${cardId}`, {
+      .get(`${process.env.REACT_APP_BASE_API_URL}card/consumer/transactions/list/hackathon`, {
         headers: {
           "x-api-key": process.env.REACT_APP_API_ORG_ID!,
           "x-wallet-address": walletAddress,
