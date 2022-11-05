@@ -2,6 +2,8 @@ import "@fontsource/roboto-mono";
 
 import { Box, ChakraProvider, Grid, GridItem, HStack, Image, SimpleGrid, Text, VStack, theme } from "@chakra-ui/react";
 
+import { TransactionHistory } from "./components/TransactionHistory";
+
 export const App = () => {
   document.body.style.backgroundColor = "#000000";
 
@@ -20,7 +22,9 @@ export const App = () => {
 
           <SimpleGrid columns={2} w="full" h="full" gap={10} pt={2.5} pr={10}>
             <GridItem minW="200px" h="100vh" bg="black" borderWidth={6} borderColor="white" borderRadius={36} />
-            <GridItem minW="200px" h="100vh" bg="black" borderWidth={6} borderColor="white" borderRadius={36} />
+            <GridItem minW="200px" h="100vh" bg="black" borderWidth={6} borderColor="white" borderRadius={36}>
+              <TransactionHistory />
+            </GridItem>
           </SimpleGrid>
         </HStack>
       </VStack>
