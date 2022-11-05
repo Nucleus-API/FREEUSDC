@@ -37,7 +37,6 @@ interface KycModalProps {
 }
 
 export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
-  const [kycStatus, setKycStatus] = useState<string>("notStarted");
   const { address } = useAccount();
 
   // iso2 is what iban uses that Solid requires: https://www.iban.com/country-codes
@@ -45,10 +44,6 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
     label: name,
     value: iso2
   }));
-
-  const resetState = () => {
-    setKycStatus("notStarted");
-  }
 
   useEffect(() => {
     if (isOpen) {
@@ -63,7 +58,6 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   const submit = async (values: any) => {
-    console.log('Values: ', values);
     await BankingService.createPerson(address, {
       firstName: values.firstName,
       lastName: values.lastName,
@@ -91,7 +85,6 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
     <Modal
       isOpen={isOpen}
       onClose={() => {
-        resetState();
         onClose();
       }}
       size="6xl"
@@ -117,16 +110,13 @@ export const KycModal = ({ isOpen, onOpen, onClose }: KycModalProps) => {
               <ModalHeader>Complete your Profile</ModalHeader>
               <ModalBody>
                 <VStack w="full" alignItems="flex-start" spacing={3}>
-                  {kycStatus !== "notStarted" && (
-                    <Alert status="warning">
-                      <AlertIcon />
-                      Your profile is under review. This page will automatically refresh in a few seconds.
-                    </Alert>
-                  )}
-                  <Text fontSize={12} color="gray.500">
-                    This information is never saved in our database or exposed to other team members. We only share this
-                    information with our Bank Partners to comply with regulations.
-                  </Text>
+                  <Alert status="info">
+                    <AlertIcon />
+                    <Text fontWeight="600" fontSize="14">
+                      Our bank partner is mandated by federal law (USA PATRIOT ACT) to collect this information. This information
+                      is never saved with Nucleus. It is only used to verify your identity and will not affect your credit score.
+                    </Text>
+                  </Alert>
                   
                   <Flex w="full" gap="10px">
                     {formikWrappedInput('firstName', 'First Name', props.isSubmitting, {}, true, false)}
