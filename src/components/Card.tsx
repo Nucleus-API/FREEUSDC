@@ -1,6 +1,6 @@
 import "@fontsource/montserrat/700.css";
 
-import { HStack, Spacer, Text, VStack } from "@chakra-ui/react";
+import { HStack, Image, Spacer, Text, VStack } from "@chakra-ui/react";
 
 import { BankingService } from "services/BankingService";
 import { VGSCVV } from "components/VGSCVV";
@@ -32,19 +32,21 @@ export const Card = (props: CardProps) => {
   };
 
   if (cards && cards.length === 0) {
-    return (
-      <VStack>
-        <Text>No card state</Text>
-      </VStack>
-    );
+    return <></>;
   }
 
   const card = cards[0];
   return (
     <VStack alignItems="flex-start" spacing={6}>
+
+      <HStack>
+        <Image src='./apple-logo-white.png' h={34} />
+        <Text fontWeight='bold' color='white' fontSize={20}>Apple Wallet Compatible</Text>
+      </HStack>
+
       <VStack
-        w="500px"
-        h="270px"
+        w="450px"
+        h="257px"
         bg="white"
         borderRadius={14}
         pl={6}
@@ -100,7 +102,7 @@ export const Card = (props: CardProps) => {
             <Text w="full" color="gray" fontSize={14}>
               Card Expiry:
             </Text>
-            <Text fontWeight="bold" color="black" fontSize={16}>
+            <Text fontWeight="semibold" color="black" fontSize='22px' fontFamily='Helvetica Neue'>
               {card.expiryMonth}/{card.expiryYear}
             </Text>
 

@@ -28,7 +28,7 @@ export const VGSCardNumber = (props: VGSCardNumberProps) => {
       serializers: [show.SERIALIZERS.replace("(\\d{4})(\\d{4})(\\d{4})(\\d{4})", "$1 $2 $3 $4")],
     });
     cardNumber.render(secretRef.current, {
-      fontSize: "16px",
+      fontSize: "22px",
       color: "black",
       display: "block",
       fontWeight: "semibold",

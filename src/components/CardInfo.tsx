@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Box, Button, HStack, Image, Text, VStack, useDisclosure, Spacer } from "@chakra-ui/react";
+import { Alert, AlertIcon, Box, Button, HStack, Image, Text, VStack, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 import { BankingService } from "../services/BankingService";
@@ -13,7 +13,7 @@ type CardInfoProps = {
 
 export const CardInfo = (props: CardInfoProps) => {
   const { isConnected, address } = useAccount();
-  const [kycStatus, setKycStatus] = useState<string>("notStarted");
+  const [kycStatus, setKycStatus] = useState<string | undefined>(undefined);
   const { openConnectModal } = useConnectModal();
   const [justConnected, setJustConnected] = useState<boolean | undefined>(false);
 
@@ -21,7 +21,9 @@ export const CardInfo = (props: CardInfoProps) => {
 
   const getCardClick = async () => {
     if (isConnected) {
-      onKycOpen();
+      if (kycStatus === "notStarted") {
+        onKycOpen();
+      }
     } else {
       openConnectModal!();
       setJustConnected(true);
@@ -38,23 +40,22 @@ export const CardInfo = (props: CardInfoProps) => {
 
   const fetchKycStatus = async (walletAddress: string) => {
     const response = await BankingService.kycStatus(walletAddress);
-    console.log(response);
     return response.status;
   };
 
   useEffect(() => {
-    if (isConnected && justConnected) {
+    if (isConnected && justConnected && kycStatus === "notStarted") {
       onKycOpen();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, justConnected]);
+  }, [isConnected, justConnected, kycStatus]);
 
   return (
     <VStack w="full" h="100%" borderColor="white" borderWidth={6} borderRadius={36} flexGrow={1}>
-      <VStack w="full" h="full" alignItems="flex-start" spacing={12} pt={6} pb={6} pr={10} pl={10}>
+      <VStack w="full" h="full" alignItems="flex-start" spacing={6} pt={6} pb={6} pr={10} pl={10}>
         <Box>
-          <Text fontFamily="Roboto Mono" fontWeight="bold" color="white" fontSize={32}>
+          <Text fontFamily="Roboto Mono" fontWeight="bold" color="white" fontSize={26}>
             HUNDREDS OF CARDS, ONE WALLET: <br />
             SPEND IT IF YOU'RE FAST ENOUGH
           </Text>
@@ -74,7 +75,7 @@ export const CardInfo = (props: CardInfoProps) => {
           >
             shared wallet
           </a>
-          . USDC is deposited at random times. <br />
+          . USDC is deposited at random times.
           <br />
           All cards are connected to the same wallet. Race to spend it before others.
         </Text>
@@ -115,19 +116,18 @@ export const CardInfo = (props: CardInfoProps) => {
             <VStack spacing={4} alignItems="flex-start">
               <HStack spacing={8}>
                 <VStack alignItems="flex-start">
-                  <Text fontFamily="Roboto Mono" fontSize={40} fontWeight="bold" color="white">
+                  <Text fontFamily="Roboto Mono" fontSize={26} fontWeight="bold" color="white">
                     FIRST DROP:
                   </Text>
-                  <Text fontFamily="Roboto Mono" fontSize={40} fontWeight="bold" color="green">
+                  <Text fontFamily="Roboto Mono" fontSize={26} fontWeight="bold" color="green">
                     TOMORROW 11/05
                   </Text>
-                  <Spacer/>
-                  <Text fontFamily="Roboto Mono" fontSize={40} fontWeight="bold" color="white">
-                    GET READY ETHSF! 
+                  <Text fontFamily="Roboto Mono" fontSize={26} fontWeight="bold" color="white">
+                    GET READY ETHSF!
                   </Text>
 
                 </VStack>
-                
+
               </HStack>
             </VStack>
           )
@@ -135,13 +135,13 @@ export const CardInfo = (props: CardInfoProps) => {
 
         }
 
-        {(kycStatus === "inReview" || props.cards.length == 0) && isConnected && (
+        {(kycStatus === "inReview" || props.cards.length === 0) && isConnected && (
           <Alert status="success" variant="subtle" borderRadius="10px">
             <AlertIcon />
             <strong>Submitted! Refresh this page in a few minutes to see your card.</strong>
           </Alert>
-        ) }
-        
+        )}
+
         {!isConnected && (
           <Button
             onClick={() => getCardClick()}
