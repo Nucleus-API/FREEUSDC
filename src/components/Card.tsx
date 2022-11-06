@@ -32,11 +32,7 @@ export const Card = (props: CardProps) => {
   };
 
   if (cards && cards.length === 0) {
-    return (
-      <VStack>
-        <Text>No card state</Text>
-      </VStack>
-    );
+    return <></>;
   }
 
   const card = cards[0];

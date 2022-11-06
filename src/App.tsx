@@ -39,9 +39,9 @@ export const App = () => {
 
         <HStack h="full" w="full" spacing={10} alignItems="flex-start">
           <Box h="calc(100vh)" w="19px" bg="#8526FE" />
-          <Image src="./FREEUSDC.png" h="100vh" pt={2} pb={2} />
+          <Image src="./FREEUSDC.png" w={32} pt={2} pb={2} />
 
-          <SimpleGrid columns={{ md: 1, lg: 2, xl: 2 }} spacing={10} w="full" h="100vh" pt={2.5} pr={10} pb={6}>
+          <SimpleGrid columns={{ md: 1, lg: 2, xl: 2 }} spacing={10} w="full" flexGrow={1} pt={2.5} pr={10} pb={6}>
             <CardInfo cards={cards} />
             <TransactionHistory />
           </SimpleGrid>

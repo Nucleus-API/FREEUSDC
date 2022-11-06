@@ -26,7 +26,8 @@ export const TransactionHistory = () => {
     <VStack w="full" h="100%" borderColor="white" borderWidth={6} borderRadius={36} flexGrow={1}>
       <VStack
         w="full"
-        h="100vh"
+        h="full"
+        maxH="90vh"
         alignItems="flex-start"
         spacing={6}
         pt={6}
