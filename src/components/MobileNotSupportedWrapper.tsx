@@ -20,7 +20,7 @@ const MobileNotSupported = () => {
         #FREEUSDC
       </Text>
       <Text fontSize={28} fontWeight="bold" color="white" fontFamily="Roboto Mono" textAlign="center">
-        MOBILE IS NOT SUPPORTED. VISIT US ON DESKTOP INSTEAD.
+        MOBILE NOT SUPPORTED. VISIT US ON DESKTOP INSTEAD.
       </Text>
     </VStack>
   );
