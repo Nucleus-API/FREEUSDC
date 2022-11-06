@@ -119,7 +119,7 @@ export const CardInfo = (props: CardInfoProps) => {
                   <Text fontFamily="Roboto Mono" fontSize={26} fontWeight="bold" color="white">
                     FIRST DROP:
                   </Text>
-                  <Text fontFamily="Roboto Mono" fontSize={26} fontWeight="bold" color="green">
+                  <Text fontFamily="Roboto Mono" fontSize={26} fontWeight="bold" color="#24FF00">
                     TOMORROW 11/05
                   </Text>
                   <Text fontFamily="Roboto Mono" fontSize={26} fontWeight="bold" color="white">
