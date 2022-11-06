@@ -28,12 +28,21 @@ export const App = () => {
     setCards(response);
   };
 
-  
   return (
     <VStack bg="black" h="full" w="full" spacing={0}>
       <VStack bg="#0066FF" w="full" pt={1.5} pb={1.5}>
-        <Text color="white" fontWeight="bold" fontSize={24} fontFamily="Roboto Mono" textAlign={"center"}>
-          TEXT "FREEUSDC" TO 805-328-4736 TO BE NOTIFIED OF THE DROP
+        <Text color="white" fontWeight="bold" fontSize={22} fontFamily="Roboto Mono" textAlign={"center"}>
+          TEXT "FREEUSDC" TO 805-328-4736 TO BE NOTIFIED WHEN MONEY HITS THE WALLET -{" "}
+          <a
+            href="http://usenucleus.io/"
+            rel="noopener noreferrer"
+            target="_blank"
+            style={{
+              textDecoration: "underline",
+            }}
+          >
+            A PRODUCT BY NUCLEUS (YC W23)
+          </a>
         </Text>
       </VStack>
 
