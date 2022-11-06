@@ -1,6 +1,6 @@
 import "./vgs.css";
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 declare global {
   interface Window {
@@ -28,7 +28,7 @@ export const VGSCardNumber = (props: VGSCardNumberProps) => {
       serializers: [show.SERIALIZERS.replace("(\\d{4})(\\d{4})(\\d{4})(\\d{4})", "$1 $2 $3 $4")],
     });
     cardNumber.render(secretRef.current, {
-      fontSize: "22px",
+      fontSize: "16px",
       color: "black",
       display: "block",
       fontWeight: "semibold",

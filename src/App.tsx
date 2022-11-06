@@ -28,6 +28,7 @@ export const App = () => {
     setCards(response);
   };
 
+  
   return (
     <ChakraProvider theme={theme}>
       <VStack bg="black" h="full" w="full" spacing={0}>

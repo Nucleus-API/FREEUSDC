@@ -43,8 +43,8 @@ export const Card = (props: CardProps) => {
   return (
     <VStack alignItems="flex-start" spacing={6}>
       <VStack
-        w="303px"
-        h="151px"
+        w="500px"
+        h="270px"
         bg="white"
         borderRadius={14}
         pl={6}
@@ -54,49 +54,62 @@ export const Card = (props: CardProps) => {
         alignItems="flex-start"
         boxShadow="xl"
       >
-        <Text fontWeight="bold" color="white" fontSize={16}>
-          {card.label}
-        </Text>
-        <Spacer />
+
         <HStack w="full">
-          <Text fontWeight="bold" color="white" fontSize={16}>
-            **** **** **** {card.last4}
+          <Text fontWeight="bold" color="black" fontSize={16}>
+            {card.label}
           </Text>
           <Spacer />
-          <Text fontWeight="bold" color="white" fontSize={16}>
-            {card.expiryMonth}/{card.expiryYear}
-          </Text>
-        </HStack>
-      </VStack>
-
-      {/* CARD DETAILS */}
-      <VStack alignItems="flex-start" spacing={5}>
-        <VStack alignItems="flex-start">
-          <VStack alignItems={"flex-start"}>
-            {cardToken && <VGSCardNumber showToken={cardToken.showToken} solidCardId={cardToken.id} />}
-          </VStack>
-        </VStack>
-
-        <HStack spacing={7}>
-          <VStack alignItems="flex-start">
-            <Text fontWeight="bold" fontSize={16}>
-              Expiration
+          <VStack alignItems="flex-end" spacing={5}>
+            <Text fontWeight="bold" color="black" fontSize={16}>
+              #FREEUSDC
             </Text>
-            <Text fontWeight="bold" fontSize={22}>
+            <Text fontWeight="bold" color="black" fontSize={16}>
+              $100 max per transaction
+            </Text>
+          </VStack>
+
+
+
+        </HStack>
+
+        <Spacer />
+        <HStack w="full" alignItems="flex-end">
+          <VStack alignItems="flex-start">
+            <Text color="gray" fontSize={14}>
+              CVV:
+            </Text>
+            <Text fontWeight="bold" color="black" fontSize={16}>
+              {cardToken && <VGSCVV showToken={cardToken.showToken} solidCardId={cardToken.id} />}
+            </Text>
+          </VStack>
+        </HStack>
+
+        <HStack w="full">
+          <VStack alignItems="flex-start">
+            <Text color="gray" fontSize={14}>
+              Card Number:
+            </Text>
+            <Text fontWeight="bold" color="black" fontSize={16}>
+              {cardToken && <VGSCardNumber showToken={cardToken.showToken} solidCardId={cardToken.id} />}
+            </Text>
+          </VStack>
+
+          <Spacer />
+          <VStack>
+            <Text w="full" color="gray" fontSize={14}>
+              Card Expiry:
+            </Text>
+            <Text fontWeight="bold" color="black" fontSize={16}>
               {card.expiryMonth}/{card.expiryYear}
             </Text>
+
           </VStack>
 
-          <VStack alignItems="flex-start">
-            <Text fontWeight="bold" fontSize={16}>
-              CVV
-            </Text>
-            <VStack alignItems={"flex-start"}>
-              {cardToken && <VGSCVV showToken={cardToken.showToken} solidCardId={cardToken.id} />}
-            </VStack>
-          </VStack>
         </HStack>
       </VStack>
+
+
     </VStack>
   );
 };

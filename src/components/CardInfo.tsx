@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Box, Button, HStack, Image, Text, VStack, useDisclosure } from "@chakra-ui/react";
+import { Alert, AlertIcon, Box, Button, HStack, Image, Text, VStack, useDisclosure, Spacer } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 import { BankingService } from "../services/BankingService";
@@ -81,34 +81,68 @@ export const CardInfo = (props: CardInfoProps) => {
 
         <Card cards={props.cards} />
 
-        <VStack spacing={4} alignItems="flex-start">
-          <HStack spacing={8}>
-            <Image src="./01x.png" w={20}></Image>
-            <Text fontFamily="Roboto Mono" fontSize={40} fontWeight="bold" color="white">
-              GET A CARD
-            </Text>
-          </HStack>
+        {props.cards.length === 0 ? (
 
-          <HStack spacing={8}>
-            <Image src="./0x2.png" w={20}></Image>
-            <Text fontFamily="Roboto Mono" fontSize={40} fontWeight="bold" color="white">
-              WAIT FOR THE DROP
-            </Text>
-          </HStack>
 
-          <HStack spacing={8}>
-            <Image src="./0x3.png" w={20}></Image>
-            <Text fontFamily="Roboto Mono" fontSize={40} fontWeight="bold" color="white">
-              SPEND THE MONEY
-            </Text>
-          </HStack>
-        </VStack>
-        {kycStatus !== "notStarted" ? (
+
+          <VStack spacing={4} alignItems="flex-start">
+            <HStack spacing={8}>
+              <Image src="./01x.png" w={20}></Image>
+              <Text fontFamily="Roboto Mono" fontSize={40} fontWeight="bold" color="white">
+                GET A CARD
+              </Text>
+            </HStack>
+
+            <HStack spacing={8}>
+              <Image src="./0x2.png" w={20}></Image>
+              <Text fontFamily="Roboto Mono" fontSize={40} fontWeight="bold" color="white">
+                WAIT FOR THE DROP
+              </Text>
+            </HStack>
+
+            <HStack spacing={8}>
+              <Image src="./0x3.png" w={20}></Image>
+              <Text fontFamily="Roboto Mono" fontSize={40} fontWeight="bold" color="white">
+                SPEND THE MONEY
+              </Text>
+            </HStack>
+          </VStack>
+
+
+        )
+
+          : (
+            <VStack spacing={4} alignItems="flex-start">
+              <HStack spacing={8}>
+                <VStack alignItems="flex-start">
+                  <Text fontFamily="Roboto Mono" fontSize={40} fontWeight="bold" color="white">
+                    FIRST DROP:
+                  </Text>
+                  <Text fontFamily="Roboto Mono" fontSize={40} fontWeight="bold" color="green">
+                    TOMORROW 11/05
+                  </Text>
+                  <Spacer/>
+                  <Text fontFamily="Roboto Mono" fontSize={40} fontWeight="bold" color="white">
+                    GET READY ETHSF! 
+                  </Text>
+
+                </VStack>
+                
+              </HStack>
+            </VStack>
+          )
+
+
+        }
+
+        {(kycStatus === "inReview" || props.cards.length == 0) && isConnected && (
           <Alert status="success" variant="subtle" borderRadius="10px">
             <AlertIcon />
             <strong>Submitted! Refresh this page in a few minutes to see your card.</strong>
           </Alert>
-        ) : (
+        ) }
+        
+        {!isConnected && (
           <Button
             onClick={() => getCardClick()}
             fontFamily="Roboto Mono"
