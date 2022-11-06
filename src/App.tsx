@@ -41,7 +41,7 @@ export const App = () => {
               textDecoration: "underline",
             }}
           >
-            A PRODUCT BY NUCLEUS (YC W23)
+            POWERED BY NUCLEUS API (YC W23)
           </a>
         </Text>
       </VStack>
