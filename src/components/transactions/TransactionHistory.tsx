@@ -38,7 +38,7 @@ export const TransactionHistory = () => {
           overflow: "auto",
         }}
       >
-        <Text fontFamily="Roboto Mono" fontWeight="bold" color="white" fontSize={32}>
+        <Text fontFamily="Roboto Mono" fontWeight="bold" color="white" fontSize={26}>
           TRANSACTION HISTORY
         </Text>
 

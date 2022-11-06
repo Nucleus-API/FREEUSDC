@@ -28,6 +28,7 @@ export const App = () => {
     setCards(response);
   };
 
+  
   return (
     <VStack bg="black" h="full" w="full" spacing={0}>
       <VStack bg="#0066FF" w="full" pt={1.5} pb={1.5}>

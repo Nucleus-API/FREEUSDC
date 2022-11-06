@@ -17,6 +17,7 @@ export const VGSCVV = (props: VGSCSSProps) => {
   const secretRef = useRef();
 
   useEffect(() => {
+    console.log('cvv');
     const show = window.VGSShow.create(process.env.REACT_APP_VAULT_ID, function (state) {});
     const headers = { "sd-show-token": props.showToken };
     const cardNumber = show.request({
