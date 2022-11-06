@@ -83,9 +83,6 @@ export const CardInfo = (props: CardInfoProps) => {
         <Card cards={props.cards} />
 
         {props.cards.length === 0 ? (
-
-
-
           <VStack spacing={4} alignItems="flex-start">
             <HStack spacing={8}>
               <Image src="./01x.png" w={20}></Image>
@@ -108,32 +105,23 @@ export const CardInfo = (props: CardInfoProps) => {
               </Text>
             </HStack>
           </VStack>
-
-
-        )
-
-          : (
-            <VStack spacing={4} alignItems="flex-start">
-              <HStack spacing={8}>
-                <VStack alignItems="flex-start">
-                  <Text fontFamily="Roboto Mono" fontSize={26} fontWeight="bold" color="white">
-                    FIRST DROP:
-                  </Text>
-                  <Text fontFamily="Roboto Mono" fontSize={26} fontWeight="bold" color="#24FF00">
-                    TOMORROW 11/05
-                  </Text>
-                  <Text fontFamily="Roboto Mono" fontSize={26} fontWeight="bold" color="white">
-                    GET READY ETHSF!
-                  </Text>
-
-                </VStack>
-
-              </HStack>
-            </VStack>
-          )
-
-
-        }
+        ) : (
+          <VStack spacing={4} alignItems="flex-start">
+            <HStack spacing={8}>
+              <VStack alignItems="flex-start">
+                <Text fontFamily="Roboto Mono" fontSize={26} fontWeight="bold" color="white">
+                  FIRST DROP:
+                </Text>
+                <Text fontFamily="Roboto Mono" fontSize={26} fontWeight="bold" color="#24FF00">
+                  TOMORROW 11/06
+                </Text>
+                <Text fontFamily="Roboto Mono" fontSize={26} fontWeight="bold" color="white">
+                  GET READY ETHSF!
+                </Text>
+              </VStack>
+            </HStack>
+          </VStack>
+        )}
 
         {(kycStatus === "inReview" || props.cards.length === 0) && isConnected && (
           <Alert status="success" variant="subtle" borderRadius="10px">
