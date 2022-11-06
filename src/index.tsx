@@ -4,7 +4,8 @@ import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import * as serviceWorker from "./serviceWorker";
 
-import { ColorModeScript } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript, theme } from "@chakra-ui/react";
+
 import { Root } from "Root";
 import reportWebVitals from "./reportWebVitals";
 
@@ -15,7 +16,9 @@ const root = ReactDOM.createRoot(container);
 root.render(
   <React.StrictMode>
     <ColorModeScript />
-    <Root />
+    <ChakraProvider theme={theme}>
+      <Root />
+    </ChakraProvider>
   </React.StrictMode>
 );
 

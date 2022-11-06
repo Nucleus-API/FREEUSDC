@@ -4,6 +4,7 @@ import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
 import { WagmiConfig, chain, configureChains, createClient } from "wagmi";
 
 import { App } from "App";
+import { MobileNotSupportedWrapper } from "components/MobileNotSupportedWrapper";
 import { infuraProvider } from "wagmi/providers/infura";
 
 const { chains, provider } = configureChains(
@@ -24,7 +25,9 @@ export const Root = () => {
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains} coolMode>
-        <App />
+        <MobileNotSupportedWrapper>
+          <App />
+        </MobileNotSupportedWrapper>
       </RainbowKitProvider>
     </WagmiConfig>
   );
