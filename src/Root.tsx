@@ -8,7 +8,7 @@ import { MobileNotSupportedWrapper } from "components/MobileNotSupportedWrapper"
 import { infuraProvider } from "wagmi/providers/infura";
 
 const { chains, provider } = configureChains(
-  [process.env.REACT_APP_STAGE === "dev" ? chain.goerli : chain.mainnet],
+  [process.env.REACT_APP_STAGE === "dev" ? chain.goerli : chain.mainnet, chain.polygon],
   [infuraProvider({ apiKey: process.env.REACT_APP_INFURA_KEY })]
 );
 const { connectors } = getDefaultWallets({
