@@ -13,7 +13,7 @@ type CardInfoProps = {
 
 export const CardInfo = (props: CardInfoProps) => {
   const { isConnected, address } = useAccount();
-  const [kycStatus, setKycStatus] = useState<string>("notStarted");
+  const [kycStatus, setKycStatus] = useState<string | undefined>(undefined);
   const { openConnectModal } = useConnectModal();
   const [justConnected, setJustConnected] = useState<boolean | undefined>(false);
 
@@ -21,7 +21,9 @@ export const CardInfo = (props: CardInfoProps) => {
 
   const getCardClick = async () => {
     if (isConnected) {
-      onKycOpen();
+      if (kycStatus === "notStarted") {
+        onKycOpen();
+      }
     } else {
       openConnectModal!();
       setJustConnected(true);
@@ -42,12 +44,12 @@ export const CardInfo = (props: CardInfoProps) => {
   };
 
   useEffect(() => {
-    if (isConnected && justConnected) {
+    if (isConnected && justConnected && kycStatus === "notStarted") {
       onKycOpen();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, justConnected]);
+  }, [isConnected, justConnected, kycStatus]);
 
   return (
     <VStack w="full" h="100%" borderColor="white" borderWidth={6} borderRadius={36} flexGrow={1}>
@@ -102,7 +104,7 @@ export const CardInfo = (props: CardInfoProps) => {
             </Text>
           </HStack>
         </VStack>
-        {kycStatus !== "notStarted" ? (
+        {kycStatus && kycStatus !== "notStarted" ? (
           <Alert status="success" variant="subtle" borderRadius="10px">
             <AlertIcon />
             <strong>Submitted! Refresh this page in a few minutes to see your card.</strong>
